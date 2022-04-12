@@ -1,0 +1,2615 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
+	<meta name="author" content="AdminKit">
+	<meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
+
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link rel="shortcut icon" href="img/icons/icon-48x48.png" />
+
+	<link rel="canonical" href="https://demo-basic.adminkit.io/" />
+
+	<title>Bikelytics</title>
+
+	<link href="css/app.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+	<style>
+		#chartdiv {
+			width: 100%;
+			height: 500px;
+		}
+		#chartdiv1 {
+			width: 100%;
+			height: 500px;
+		}
+		#barchartdiv1 {
+			width: 100%;
+			height: 500px;
+		}
+		#barchartdiv2 {
+			width: 100%;
+			height: 500px;
+		}
+		#linechartdiv1 {
+			width: 100%;
+			height: 500px;
+		}
+	</style>
+
+	<!-- Resources -->
+	<script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+	<script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+	<script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+
+	<script src='https://cdn.plot.ly/plotly-2.9.0.min.js'></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js'></script>
+
+
+	<script>
+		am5.ready(function() {
+
+// Create root element
+// https://www.amcharts.com/docs/v5/getting-started/#Root_element
+			var root = am5.Root.new("linechartdiv1");
+
+
+// Set themes
+// https://www.amcharts.com/docs/v5/concepts/themes/
+			root.setThemes([
+				am5themes_Animated.new(root)
+			]);
+
+			root.dateFormatter.setAll({
+				dateFormat: "yyyy",
+				dateFields: ["valueX"]
+			});
+
+			var data = [
+				{
+					date: "2021-01-01",
+					value: 24
+				},
+				{
+					date: "2021-01-02",
+					value: 33
+				},
+				{
+					date: "2021-01-03",
+					value: 56
+				},
+				{
+					date: "2021-01-04",
+					value: 87
+				},
+				{
+					date: "2021-01-05",
+					value: 248
+				},
+				{
+					date: "2021-01-06",
+					value: 71
+				},
+				{
+					date: "2021-01-07",
+					value: 15
+				},
+				{
+					date: "2021-01-08",
+					value: 51
+				},
+				{
+					date: "2021-01-09",
+					value: 19
+				},
+				{
+					date: "2021-01-10",
+					value: 14
+				},
+				{
+					date: "2021-01-11",
+					value: 25
+				},
+				{
+					date: "2021-01-12",
+					value: 11
+				},
+				{
+					date: "2021-01-13",
+					value: 10
+				},
+				{
+					date: "2021-01-14",
+					value: 22
+				},
+				{
+					date: "2021-01-15",
+					value: 24
+				},
+				{
+					date: "2021-01-16",
+					value: 25
+				},
+				{
+					date: "2021-01-17",
+					value: 18
+				},
+				{
+					date: "2021-01-18",
+					value: 20
+				},
+				{
+					date: "2021-01-19",
+					value: 5
+				},
+				{
+					date: "2021-01-20",
+					value: 4
+				},
+				{
+					date: "2021-01-21",
+					value: 8
+				},
+				{
+					date: "2021-01-22",
+					value: 5
+				},
+				{
+					date: "2021-01-23",
+					value: 11
+				},
+				{
+					date: "2021-01-24",
+					value: 12
+				},
+				{
+					date: "2021-01-25",
+					value: 3
+				},
+				{
+					date: "2021-01-26",
+					value: 6
+				},
+				{
+					date: "2021-01-27",
+					value: 2
+				},
+				{
+					date: "2021-01-28",
+					value: 1
+				},
+				{
+					date: "2021-01-29",
+					value: 5
+				},
+				{
+					date: "2021-01-30",
+					value: 3
+				},
+				{
+					date: "2021-01-31",
+					value: 2
+				},
+				{
+					date: "2021-02-01",
+					value: 4
+				},
+				{
+					date: "2021-02-02",
+					value: 33
+				},
+				{
+					date: "2021-02-03",
+					value: 53
+				},
+				{
+					date: "2021-02-04",
+					value: 20
+				},
+				{
+					date: "2021-02-05",
+					value: 23
+				},
+				{
+					date: "2021-02-06",
+					value: 20
+				},
+				{
+					date: "2021-02-07",
+					value: 17
+				},
+				{
+					date: "2021-02-08",
+					value: 17
+				},
+				{
+					date: "2021-02-09",
+					value: 42
+				},
+				{
+					date: "2021-02-10",
+					value: 9
+				},
+				{
+					date: "2021-02-11",
+					value: 10
+				},
+				{
+					date: "2021-02-12",
+					value: 8
+				},
+				{
+					date: "2021-02-13",
+					value: 16
+				},
+				{
+					date: "2021-02-14",
+					value: 38
+				},
+				{
+					date: "2021-02-15",
+					value: 13
+				},
+				{
+					date: "2021-02-16",
+					value: 23
+				},
+				{
+					date: "2021-02-17",
+					value: 4
+				},
+				{
+					date: "2021-02-18",
+					value: 9
+				},
+				{
+					date: "2021-02-19",
+					value: 18
+				},
+				{
+					date: "2021-02-20",
+					value: 12
+				},
+				{
+					date: "2021-02-21",
+					value: 37
+				},
+				{
+					date: "2021-02-22",
+					value: 33
+				},
+				{
+					date: "2021-02-23",
+					value: 11
+				},
+				{
+					date: "2021-02-24",
+					value: 23
+				},
+				{
+					date: "2021-02-25",
+					value: 18
+				},
+				{
+					date: "2021-02-26",
+					value: 14
+				},
+				{
+					date: "2021-02-27",
+					value: 15
+				},
+				{
+					date: "2021-02-28",
+					value: 20
+				},
+				{
+					date: "2021-03-01",
+					value: 23
+				},
+				{
+					date: "2021-03-02",
+					value: 50
+				},
+				{
+					date: "2021-03-03",
+					value: 22
+				},
+				{
+					date: "2021-03-04",
+					value: 6
+				},
+				{
+					date: "2021-03-05",
+					value: 12
+				},
+				{
+					date: "2021-03-06",
+					value: 14
+				},
+				{
+					date: "2021-03-07",
+					value: 26
+				},
+				{
+					date: "2021-03-08",
+					value: 34
+				},
+				{
+					date: "2021-03-09",
+					value: 20
+				},
+				{
+					date: "2021-03-10",
+					value: 41
+				},
+				{
+					date: "2021-03-11",
+					value: 85
+				},
+				{
+					date: "2021-03-12",
+					value: 121
+				},
+				{
+					date: "2021-03-13",
+					value: 63
+				},
+				{
+					date: "2021-03-14",
+					value: 59
+				},
+				{
+					date: "2021-03-15",
+					value: 61
+				},
+				{
+					date: "2021-03-16",
+					value: 173
+				},
+				{
+					date: "2021-03-17",
+					value: 251
+				},
+				{
+					date: "2021-03-18",
+					value: 96
+				},
+				{
+					date: "2021-03-19",
+					value: 125
+				},
+				{
+					date: "2021-03-20",
+					value: 22
+				},
+				{
+					date: "2021-03-21",
+					value: 73
+				},
+				{
+					date: "2021-03-22",
+					value: 70
+				},
+				{
+					date: "2021-03-23",
+					value: 507
+				},
+				{
+					date: "2021-03-24",
+					value: 90
+				},
+				{
+					date: "2021-03-25",
+					value: 50
+				},
+				{
+					date: "2021-03-26",
+					value: 109
+				},
+				{
+					date: "2021-03-27",
+					value: 224
+				},
+				{
+					date: "2021-03-28",
+					value: 187
+				},
+				{
+					date: "2021-03-29",
+					value: 102
+				},
+				{
+					date: "2021-03-30",
+					value: 90
+				},
+				{
+					date: "2021-03-31",
+					value: 63
+				},
+				{
+					date: "2021-04-01",
+					value: 66
+				},
+				{
+					date: "2021-04-02",
+					value: 101
+				},
+				{
+					date: "2021-04-03",
+					value: 159
+				},
+				{
+					date: "2021-04-04",
+					value: 14
+				},
+				{
+					date: "2021-04-05",
+					value: 191
+				},
+				{
+					date: "2021-04-06",
+					value: 670
+				},
+				{
+					date: "2021-04-07",
+					value: 374
+				},
+				{
+					date: "2021-04-08",
+					value: 367
+				},
+				{
+					date: "2021-04-09",
+					value: 287
+				},
+				{
+					date: "2021-04-10",
+					value: 20
+				},
+				{
+					date: "2021-04-11",
+					value: 72
+				},
+				{
+					date: "2021-04-12",
+					value: 134
+				},
+				{
+					date: "2021-04-13",
+					value: 568
+				},
+				{
+					date: "2021-04-14",
+					value: 3
+				},
+				{
+					date: "2021-04-15",
+					value: 222
+				},
+				{
+					date: "2021-04-16",
+					value: 358
+				},
+				{
+					date: "2021-04-17",
+					value: 255
+				},
+				{
+					date: "2021-04-18",
+					value: 35
+				},
+				{
+					date: "2021-04-19",
+					value: 88
+				},
+				{
+					date: "2021-04-20",
+					value: 509
+				},
+				{
+					date: "2021-04-21",
+					value: 1083
+				},
+				{
+					date: "2021-04-22",
+					value: 514
+				},
+				{
+					date: "2021-04-23",
+					value: 99
+				},
+				{
+					date: "2021-04-24",
+					value: 228
+				},
+				{
+					date: "2021-04-25",
+					value: 228
+				},
+				{
+					date: "2021-04-26",
+					value: 618
+				},
+				{
+					date: "2021-04-27",
+					value: 31
+				},
+				{
+					date: "2021-04-28",
+					value: 353
+				},
+				{
+					date: "2021-04-29",
+					value: 37
+				},
+				{
+					date: "2021-04-30",
+					value: 25
+				},
+				{
+					date: "2021-05-01",
+					value: 88
+				},
+				{
+					date: "2021-05-02",
+					value: 39
+				},
+				{
+					date: "2021-05-03",
+					value: 212
+				},
+				{
+					date: "2021-05-04",
+					value: 763
+				},
+				{
+					date: "2021-05-05",
+					value: 1227
+				},
+				{
+					date: "2021-05-06",
+					value: 119
+				},
+				{
+					date: "2021-05-07",
+					value: 39
+				},
+				{
+					date: "2021-05-08",
+					value: 148
+				},
+				{
+					date: "2021-05-09",
+					value: 202
+				},
+				{
+					date: "2021-05-10",
+					value: 299
+				},
+				{
+					date: "2021-05-11",
+					value: 155
+				},
+				{
+					date: "2021-05-12",
+					value: 207
+				},
+				{
+					date: "2021-05-13",
+					value: 314
+				},
+				{
+					date: "2021-05-14",
+					value: 385
+				},
+				{
+					date: "2021-05-15",
+					value: 394
+				},
+				{
+					date: "2021-05-16",
+					value: 259
+				},
+				{
+					date: "2021-05-17",
+					value: 103
+				},
+				{
+					date: "2021-05-18",
+					value: 651
+				},
+				{
+					date: "2021-05-19",
+					value: 526
+				},
+				{
+					date: "2021-05-20",
+					value: 213
+				},
+				{
+					date: "2021-05-21",
+					value: 66
+				},
+				{
+					date: "2021-05-22",
+					value: 581
+				},
+				{
+					date: "2021-05-23",
+					value: 548
+				},
+				{
+					date: "2021-05-24",
+					value: 378
+				},
+				{
+					date: "2021-05-25",
+					value: 1422
+				},
+				{
+					date: "2021-05-26",
+					value: 984
+				},
+				{
+					date: "2021-05-27",
+					value: 436
+				},
+				{
+					date: "2021-05-28",
+					value: 168
+				},
+				{
+					date: "2021-05-29",
+					value: 320
+				},
+				{
+					date: "2021-05-30",
+					value: 465
+				},
+				{
+					date: "2021-05-31",
+					value: 767
+				},
+				{
+					date: "2021-06-01",
+					value: 443
+				},
+				{
+					date: "2021-06-02",
+					value: 986
+				},
+				{
+					date: "2021-06-03",
+					value: 444
+				},
+				{
+					date: "2021-06-04",
+					value: 341
+				},
+				{
+					date: "2021-06-05",
+					value: 439
+				},
+				{
+					date: "2021-06-06",
+					value: 338
+				},
+				{
+					date: "2021-06-07",
+					value: 558
+				},
+				{
+					date: "2021-06-08",
+					value: 1418
+				},
+				{
+					date: "2021-06-09",
+					value: 410
+				},
+				{
+					date: "2021-06-10",
+					value: 583
+				},
+				{
+					date: "2021-06-11",
+					value: 593
+				},
+				{
+					date: "2021-06-12",
+					value: 137
+				},
+				{
+					date: "2021-06-13",
+					value: 400
+				},
+				{
+					date: "2021-06-14",
+					value: 855
+				},
+				{
+					date: "2021-06-15",
+					value: 230
+				},
+				{
+					date: "2021-06-16",
+					value: 339
+				},
+				{
+					date: "2021-06-17",
+					value: 373
+				},
+				{
+					date: "2021-06-18",
+					value: 567
+				},
+				{
+					date: "2021-06-19",
+					value: 194
+				},
+				{
+					date: "2021-06-20",
+					value: 322
+				},
+				{
+					date: "2021-06-21",
+					value: 663
+				},
+				{
+					date: "2021-06-22",
+					value: 1538
+				},
+				{
+					date: "2021-06-23",
+					value: 621
+				},
+				{
+					date: "2021-06-24",
+					value: 388
+				},
+				{
+					date: "2021-06-25",
+					value: 771
+				},
+				{
+					date: "2021-06-26",
+					value: 783
+				},
+				{
+					date: "2021-06-27",
+					value: 648
+				},
+				{
+					date: "2021-06-28",
+					value: 715
+				},
+				{
+					date: "2021-06-29",
+					value: 1813
+				},
+				{
+					date: "2021-06-30",
+					value: 775
+				},
+				{
+					date: "2021-07-01",
+					value: 807
+				},
+				{
+					date: "2021-07-02",
+					value: 495
+				},
+				{
+					date: "2021-07-03",
+					value: 674
+				},
+				{
+					date: "2021-07-04",
+					value: 1434
+				},
+				{
+					date: "2021-07-05",
+					value: 935
+				},
+				{
+					date: "2021-07-06",
+					value: 1507
+				},
+				{
+					date: "2021-07-07",
+					value: 771
+				},
+				{
+					date: "2021-07-08",
+					value: 742
+				},
+				{
+					date: "2021-07-09",
+					value: 689
+				},
+				{
+					date: "2021-07-10",
+					value: 545
+				},
+				{
+					date: "2021-07-11",
+					value: 580
+				},
+				{
+					date: "2021-07-12",
+					value: 1079
+				},
+				{
+					date: "2021-07-13",
+					value: 1542
+				},
+				{
+					date: "2021-07-14",
+					value: 1191
+				},
+				{
+					date: "2021-07-15",
+					value: 586
+				},
+				{
+					date: "2021-07-16",
+					value: 418
+				},
+				{
+					date: "2021-07-17",
+					value: 660
+				},
+				{
+					date: "2021-07-18",
+					value: 410
+				},
+				{
+					date: "2021-07-19",
+					value: 647
+				},
+				{
+					date: "2021-07-20",
+					value: 1222
+				},
+				{
+					date: "2021-07-21",
+					value: 788
+				},
+				{
+					date: "2021-07-22",
+					value: 867
+				},
+				{
+					date: "2021-07-23",
+					value: 838
+				},
+				{
+					date: "2021-07-24",
+					value: 792
+				},
+				{
+					date: "2021-07-25",
+					value: 870
+				},
+				{
+					date: "2021-07-26",
+					value: 935
+				},
+				{
+					date: "2021-07-27",
+					value: 1679
+				},
+				{
+					date: "2021-07-28",
+					value: 1162
+				},
+				{
+					date: "2021-07-29",
+					value: 467
+				},
+				{
+					date: "2021-07-30",
+					value: 761
+				},
+				{
+					date: "2021-07-31",
+					value: 765
+				},
+				{
+					date: "2021-08-01",
+					value: 747
+				},
+				{
+					date: "2021-08-02",
+					value: 1008
+				},
+				{
+					date: "2021-08-03",
+					value: 1767
+				},
+				{
+					date: "2021-08-04",
+					value: 1314
+				},
+				{
+					date: "2021-08-05",
+					value: 1042
+				},
+				{
+					date: "2021-08-06",
+					value: 815
+				},
+				{
+					date: "2021-08-07",
+					value: 842
+				},
+				{
+					date: "2021-08-08",
+					value: 813
+				},
+				{
+					date: "2021-08-09",
+					value: 1072
+				},
+				{
+					date: "2021-08-10",
+					value: 1769
+				},
+				{
+					date: "2021-08-11",
+					value: 1249
+				},
+				{
+					date: "2021-08-12",
+					value: 384
+				},
+				{
+					date: "2021-08-13",
+					value: 773
+				},
+				{
+					date: "2021-08-14",
+					value: 627
+				},
+				{
+					date: "2021-08-15",
+					value: 787
+				},
+				{
+					date: "2021-08-16",
+					value: 947
+				},
+				{
+					date: "2021-08-17",
+					value: 954
+				},
+				{
+					date: "2021-08-18",
+					value: 857
+				},
+				{
+					date: "2021-08-19",
+					value: 682
+				},
+				{
+					date: "2021-08-20",
+					value: 398
+				},
+				{
+					date: "2021-08-21",
+					value: 696
+				},
+				{
+					date: "2021-08-22",
+					value: 791
+				},
+				{
+					date: "2021-08-23",
+					value: 823
+				},
+				{
+					date: "2021-08-24",
+					value: 1444
+				},
+				{
+					date: "2021-08-25",
+					value: 1079
+				},
+				{
+					date: "2021-08-26",
+					value: 131
+				},
+				{
+					date: "2021-08-27",
+					value: 559
+				},
+				{
+					date: "2021-08-28",
+					value: 540
+				},
+				{
+					date: "2021-08-29",
+					value: 566
+				},
+				{
+					date: "2021-08-30",
+					value: 916
+				},
+				{
+					date: "2021-08-31",
+					value: 1790
+				},
+				{
+					date: "2021-09-01",
+					value: 1746
+				},
+				{
+					date: "2021-09-02",
+					value: 1598
+				},
+				{
+					date: "2021-09-03",
+					value: 276
+				},
+				{
+					date: "2021-09-04",
+					value: 432
+				},
+				{
+					date: "2021-09-05",
+					value: 454
+				},
+				{
+					date: "2021-09-06",
+					value: 524
+				},
+				{
+					date: "2021-09-07",
+					value: 1394
+				},
+				{
+					date: "2021-09-08",
+					value: 432
+				},
+				{
+					date: "2021-09-09",
+					value: 454
+				},
+				{
+					date: "2021-09-10",
+					value: 441
+				},
+				{
+					date: "2021-09-11",
+					value: 393
+				},
+				{
+					date: "2021-09-12",
+					value: 407
+				},
+				{
+					date: "2021-09-13",
+					value: 483
+				},
+				{
+					date: "2021-09-14",
+					value: 1687
+				},
+				{
+					date: "2021-09-15",
+					value: 713
+				},
+				{
+					date: "2021-09-16",
+					value: 410
+				},
+				{
+					date: "2021-09-17",
+					value: 422
+				},
+				{
+					date: "2021-09-18",
+					value: 502
+				},
+				{
+					date: "2021-09-19",
+					value: 576
+				},
+				{
+					date: "2021-09-20",
+					value: 781
+				},
+				{
+					date: "2021-09-21",
+					value: 1053
+				},
+				{
+					date: "2021-09-22",
+					value: 352
+				},
+				{
+					date: "2021-09-23",
+					value: 569
+				},
+				{
+					date: "2021-09-24",
+					value: 484
+				},
+				{
+					date: "2021-09-25",
+					value: 334
+				},
+				{
+					date: "2021-09-26",
+					value: 450
+				},
+				{
+					date: "2021-09-27",
+					value: 136
+				},
+				{
+					date: "2021-09-28",
+					value: 376
+				},
+				{
+					date: "2021-09-29",
+					value: 381
+				},
+				{
+					date: "2021-09-30",
+					value: 585
+				},
+				{
+					date: "2021-10-01",
+					value: 379
+				},
+				{
+					date: "2021-10-02",
+					value: 99
+				},
+				{
+					date: "2021-10-03",
+					value: 271
+				},
+				{
+					date: "2021-10-04",
+					value: 362
+				},
+				{
+					date: "2021-10-05",
+					value: 615
+				},
+				{
+					date: "2021-10-06",
+					value: 787
+				},
+				{
+					date: "2021-10-07",
+					value: 406
+				},
+				{
+					date: "2021-10-08",
+					value: 313
+				},
+				{
+					date: "2021-10-09",
+					value: 352
+				},
+				{
+					date: "2021-10-10",
+					value: 380
+				},
+				{
+					date: "2021-10-11",
+					value: 101
+				},
+				{
+					date: "2021-10-12",
+					value: 454
+				},
+				{
+					date: "2021-10-13",
+					value: 344
+				},
+				{
+					date: "2021-10-14",
+					value: 647
+				},
+				{
+					date: "2021-10-15",
+					value: 217
+				},
+				{
+					date: "2021-10-16",
+					value: 186
+				},
+				{
+					date: "2021-10-17",
+					value: 226
+				},
+				{
+					date: "2021-10-18",
+					value: 392
+				},
+				{
+					date: "2021-10-19",
+					value: 1020
+				},
+				{
+					date: "2021-10-20",
+					value: 383
+				},
+				{
+					date: "2021-10-21",
+					value: 136
+				},
+				{
+					date: "2021-10-22",
+					value: 83
+				},
+				{
+					date: "2021-10-23",
+					value: 182
+				},
+				{
+					date: "2021-10-24",
+					value: 147
+				},
+				{
+					date: "2021-10-25",
+					value: 271
+				},
+				{
+					date: "2021-10-26",
+					value: 57
+				},
+				{
+					date: "2021-10-27",
+					value: 528
+				},
+				{
+					date: "2021-10-28",
+					value: 216
+				},
+				{
+					date: "2021-10-29",
+					value: 62
+				},
+				{
+					date: "2021-10-30",
+					value: 16
+				},
+				{
+					date: "2021-10-31",
+					value: 16
+				},
+				{
+					date: "2021-11-01",
+					value: 89
+				},
+				{
+					date: "2021-11-02",
+					value: 228
+				},
+				{
+					date: "2021-11-03",
+					value: 168
+				},
+				{
+					date: "2021-11-04",
+					value: 125
+				},
+				{
+					date: "2021-11-05",
+					value: 56
+				},
+				{
+					date: "2021-11-06",
+					value: 76
+				},
+				{
+					date: "2021-11-07",
+					value: 45
+				},
+				{
+					date: "2021-11-08",
+					value: 46
+				},
+				{
+					date: "2021-11-09",
+					value: 245
+				},
+				{
+					date: "2021-11-10",
+					value: 134
+				},
+				{
+					date: "2021-11-11",
+					value: 9
+				},
+				{
+					date: "2021-11-12",
+					value: 14
+				},
+				{
+					date: "2021-11-13",
+					value: 13
+				},
+				{
+					date: "2021-11-14",
+					value: 23
+				},
+				{
+					date: "2021-11-15",
+					value: 44
+				},
+				{
+					date: "2021-11-16",
+					value: 104
+				},
+				{
+					date: "2021-11-17",
+					value: 69
+				},
+				{
+					date: "2021-11-18",
+					value: 44
+				},
+				{
+					date: "2021-11-19",
+					value: 36
+				},
+				{
+					date: "2021-11-20",
+					value: 50
+				},
+				{
+					date: "2021-11-21",
+					value: 35
+				},
+				{
+					date: "2021-11-22",
+					value: 60
+				},
+				{
+					date: "2021-11-23",
+					value: 107
+				},
+				{
+					date: "2021-11-24",
+					value: 133
+				},
+				{
+					date: "2021-11-25",
+					value: 107
+				},
+				{
+					date: "2021-11-26",
+					value: 34
+				},
+				{
+					date: "2021-11-27",
+					value: 30
+				},
+				{
+					date: "2021-11-28",
+					value: 36
+				},
+				{
+					date: "2021-11-29",
+					value: 63
+				},
+				{
+					date: "2021-11-30",
+					value: 30
+				},
+				{
+					date: "2021-12-01",
+					value: 12
+				},
+				{
+					date: "2021-12-02",
+					value: 37
+				},
+				{
+					date: "2021-12-03",
+					value: 51
+				},
+				{
+					date: "2021-12-04",
+					value: 62
+				},
+				{
+					date: "2021-12-05",
+					value: 60
+				},
+				{
+					date: "2021-12-06",
+					value: 41
+				},
+				{
+					date: "2021-12-07",
+					value: 100
+				},
+				{
+					date: "2021-12-08",
+					value: 98
+				},
+				{
+					date: "2021-12-09",
+					value: 34
+				},
+				{
+					date: "2021-12-10",
+					value: 24
+				},
+				{
+					date: "2021-12-11",
+					value: 10
+				},
+				{
+					date: "2021-12-12",
+					value: 34
+				},
+				{
+					date: "2021-12-13",
+					value: 74
+				},
+				{
+					date: "2021-12-14",
+					value: 35
+				},
+				{
+					date: "2021-12-15",
+					value: 33
+				},
+				{
+					date: "2021-12-16",
+					value: 26
+				},
+				{
+					date: "2021-12-17",
+					value: 33
+				},
+				{
+					date: "2021-12-18",
+					value: 18
+				},
+				{
+					date: "2021-12-19",
+					value: 28
+				},
+				{
+					date: "2021-12-20",
+					value: 59
+				},
+				{
+					date: "2021-12-21",
+					value: 99
+				},
+				{
+					date: "2021-12-22",
+					value: 118
+				},
+				{
+					date: "2021-12-23",
+					value: 139
+				},
+				{
+					date: "2021-12-24",
+					value: 70
+				},
+				{
+					date: "2021-12-25",
+					value: 187
+				},
+				{
+					date: "2021-12-26",
+					value: 284
+				},
+				{
+					date: "2021-12-27",
+					value: 121
+				},
+				{
+					date: "2021-12-28",
+					value: 73
+				},
+				{
+					date: "2021-12-29",
+					value: 205
+				},
+				{
+					date: "2021-12-30",
+					value: 37
+				},
+				{
+					date: "2021-12-31",
+					value: 29
+				}
+			];
+// Create chart
+// https://www.amcharts.com/docs/v5/charts/xy-chart/
+			var chart = root.container.children.push(am5xy.XYChart.new(root, {
+				focusable: true,
+				panX: true,
+				panY: true,
+				wheelX: "panX",
+				wheelY: "zoomX",
+				pinchZoomX:true
+			}));
+
+			var easing = am5.ease.linear;
+
+
+// Create axes
+// https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
+			var xAxis = chart.xAxes.push(am5xy.DateAxis.new(root, {
+				maxDeviation: 0.1,
+				groupData: false,
+				baseInterval: {
+					timeUnit: "day",
+					count: 1
+				},
+				renderer: am5xy.AxisRendererX.new(root, {
+
+				}),
+				tooltip: am5.Tooltip.new(root, {})
+			}));
+
+			var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
+				maxDeviation: 0.2,
+				renderer: am5xy.AxisRendererY.new(root, {})
+			}));
+
+
+// Add series
+// https://www.amcharts.com/docs/v5/charts/xy-chart/series/
+			var series = chart.series.push(am5xy.LineSeries.new(root, {
+				minBulletDistance: 10,
+				connect: false,
+				xAxis: xAxis,
+				yAxis: yAxis,
+				valueYField: "value",
+				valueXField: "date",
+				tooltip: am5.Tooltip.new(root, {
+					pointerOrientation: "horizontal",
+					labelText: "{valueY}"
+				})
+			}));
+
+			series.fills.template.setAll({
+				fillOpacity: 0.2,
+				visible: true
+			});
+
+			series.strokes.template.setAll({
+				strokeWidth: 2
+			});
+
+
+// Set up data processor to parse string dates
+// https://www.amcharts.com/docs/v5/concepts/data/#Pre_processing_data
+			series.data.processor = am5.DataProcessor.new(root, {
+				dateFormat: "yyyy-MM-dd",
+				dateFields: ["date"]
+			});
+
+			series.data.setAll(data);
+
+			series.bullets.push(function() {
+				var circle = am5.Circle.new(root, {
+					radius: 4,
+					fill: root.interfaceColors.get("background"),
+					stroke: series.get("fill"),
+					strokeWidth: 2
+				})
+
+				return am5.Bullet.new(root, {
+					sprite: circle
+				})
+			});
+
+
+// Add cursor
+// https://www.amcharts.com/docs/v5/charts/xy-chart/cursor/
+			var cursor = chart.set("cursor", am5xy.XYCursor.new(root, {
+				xAxis: xAxis,
+				behavior: "none"
+			}));
+			cursor.lineY.set("visible", false);
+
+// add scrollbar
+			chart.set("scrollbarX", am5.Scrollbar.new(root, {
+				orientation: "horizontal"
+			}));
+
+
+// Make stuff animate on load
+// https://www.amcharts.com/docs/v5/concepts/animations/
+			chart.appear(1000, 100);
+
+		}); // end am5.ready()
+	</script>
+
+
+	<script>
+		d3.csv(
+				//"https://raw.githubusercontent.com/plotly/datasets/master/2015_06_30_precipitation.csv",
+				"station_info.csv",
+				function(err, rows) {
+					function unpack(rows, key) {
+						return rows.map(function(row) {
+							//console.log(row)
+							return row[key];
+						});
+					}
+					console.log("data ",{
+						station_name: unpack(rows,"name"),
+						capacity: unpack(rows,"capacity")
+
+					});
+					var data = [
+						{
+							type: "scattermapbox",
+							text: unpack(rows, "Globvalue"),
+							lon: unpack(rows, "lon"),
+							lat: unpack(rows, "lat"),
+							stations: {
+								station_name: unpack(rows,"name"),
+								capacity: unpack(rows,"capacity")
+
+							},
+							text: unpack(rows,"name"),
+							capacity: unpack(rows,"capacity"),
+							marker: { color: "#337ab7", size: 6.5 },
+							hovertemplate:
+									"<b>%{text}</b><br><br>" +
+									"<extra></extra>"
+						}
+					];
+					console.log("actual data",data)
+					var layout = {
+						dragmode: "zoom",
+						mapbox: { style: "open-street-map", center: { lat: 41.871650598804706, lon: -87.6642954120881 }, zoom: 10 },
+						margin: { r: 0, t: 0, b: 0, l: 0 }
+					};
+
+					Plotly.newPlot("myDiv", data, layout);
+				}
+		); // end am5.ready()
+	</script>
+
+
+
+	<!-- Bar chart code for Hourly Incoming Stats-->
+	<script>
+		am5.ready(function() {
+
+// Create root element
+// https://www.amcharts.com/docs/v5/getting-started/#Root_element
+			var root = am5.Root.new("barchartdiv1");
+
+
+// Set themes
+// https://www.amcharts.com/docs/v5/concepts/themes/
+			root.setThemes([
+				am5themes_Animated.new(root)
+			]);
+
+
+// Create chart
+// https://www.amcharts.com/docs/v5/charts/xy-chart/
+			var chart = root.container.children.push(am5xy.XYChart.new(root, {
+				panX: true,
+				panY: true,
+				wheelX: "panX",
+				wheelY: "zoomX",
+				pinchZoomX:true
+			}));
+
+// Add cursor
+// https://www.amcharts.com/docs/v5/charts/xy-chart/cursor/
+			var cursor = chart.set("cursor", am5xy.XYCursor.new(root, {}));
+			cursor.lineY.set("visible", false);
+
+
+// Create axes
+// https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
+			var xRenderer = am5xy.AxisRendererX.new(root, { minGridDistance: 30 });
+			xRenderer.labels.template.setAll({
+				rotation: -90,
+				centerY: am5.p50,
+				centerX: am5.p100,
+				paddingRight: 15
+			});
+
+			var xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(root, {
+				maxDeviation: 0.3,
+				categoryField: "hour",
+				renderer: xRenderer,
+				tooltip: am5.Tooltip.new(root, {})
+			}));
+
+			var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
+				maxDeviation: 0.3,
+				renderer: am5xy.AxisRendererY.new(root, {})
+			}));
+
+
+// Create series
+// https://www.amcharts.com/docs/v5/charts/xy-chart/series/
+			var series = chart.series.push(am5xy.ColumnSeries.new(root, {
+				name: "Series 1",
+				xAxis: xAxis,
+				yAxis: yAxis,
+				valueYField: "trips",
+				sequencedInterpolation: true,
+				categoryXField: "hour",
+				tooltip: am5.Tooltip.new(root, {
+					labelText:"{valueY}"
+				})
+			}));
+
+			series.columns.template.setAll({ cornerRadiusTL: 5, cornerRadiusTR: 5 });
+			series.columns.template.adapters.add("fill", function(fill, target) {
+				return chart.get("colors").getIndex(series.columns.indexOf(target));
+			});
+
+			series.columns.template.adapters.add("stroke", function(stroke, target) {
+				return chart.get("colors").getIndex(series.columns.indexOf(target));
+			});
+
+
+// Set data
+			var data =  [
+				{
+					"trips": 75,
+					"hour": 0
+				},
+				{
+					"trips": 59,
+					"hour": 1
+				},
+				{
+					"trips": 36,
+					"hour": 2
+				},
+				{
+					"trips": 15,
+					"hour": 3
+				},
+				{
+					"trips": 7,
+					"hour": 4
+				},
+				{
+					"trips": 154,
+					"hour": 5
+				},
+				{
+					"trips": 405,
+					"hour": 6
+				},
+				{
+					"trips": 957,
+					"hour": 7
+				},
+				{
+					"trips": 1333,
+					"hour": 8
+				},
+				{
+					"trips": 2416,
+					"hour": 9
+				},
+				{
+					"trips": 4316,
+					"hour": 10
+				},
+				{
+					"trips": 6238,
+					"hour": 11
+				},
+				{
+					"trips": 7159,
+					"hour": 12
+				},
+				{
+					"trips": 7920,
+					"hour": 13
+				},
+				{
+					"trips": 8099,
+					"hour": 14
+				},
+				{
+					"trips": 7928,
+					"hour": 15
+				},
+				{
+					"trips": 7208,
+					"hour": 16
+				},
+				{
+					"trips": 6563,
+					"hour": 17
+				},
+				{
+					"trips": 4910,
+					"hour": 18
+				},
+				{
+					"trips": 3141,
+					"hour": 19
+				},
+				{
+					"trips": 1938,
+					"hour": 20
+				},
+				{
+					"trips": 850,
+					"hour": 21
+				},
+				{
+					"trips": 496,
+					"hour": 22
+				},
+				{
+					"trips": 226,
+					"hour": 23
+				}
+			];
+
+			xAxis.data.setAll(data);
+			series.data.setAll(data);
+
+
+// Make stuff animate on load
+// https://www.amcharts.com/docs/v5/concepts/animations/
+			series.appear(1000);
+			chart.appear(1000, 100);
+
+		}); // end am5.ready()
+	</script>
+
+
+	<!-- Bar chart code for Hourly Outgoing Stats-->
+	<script>
+		am5.ready(function() {
+
+// Create root element
+// https://www.amcharts.com/docs/v5/getting-started/#Root_element
+			var root = am5.Root.new("barchartdiv2");
+
+
+// Set themes
+// https://www.amcharts.com/docs/v5/concepts/themes/
+			root.setThemes([
+				am5themes_Animated.new(root)
+			]);
+
+
+// Create chart
+// https://www.amcharts.com/docs/v5/charts/xy-chart/
+			var chart = root.container.children.push(am5xy.XYChart.new(root, {
+				panX: true,
+				panY: true,
+				wheelX: "panX",
+				wheelY: "zoomX",
+				pinchZoomX:true
+			}));
+
+// Add cursor
+// https://www.amcharts.com/docs/v5/charts/xy-chart/cursor/
+			var cursor = chart.set("cursor", am5xy.XYCursor.new(root, {}));
+			cursor.lineY.set("visible", false);
+
+
+// Create axes
+// https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
+			var xRenderer = am5xy.AxisRendererX.new(root, { minGridDistance: 30 });
+			xRenderer.labels.template.setAll({
+				rotation: -90,
+				centerY: am5.p50,
+				centerX: am5.p100,
+				paddingRight: 15
+			});
+
+			var xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(root, {
+				maxDeviation: 0.3,
+				categoryField: "hour",
+				renderer: xRenderer,
+				tooltip: am5.Tooltip.new(root, {})
+			}));
+
+			var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
+				maxDeviation: 0.3,
+				renderer: am5xy.AxisRendererY.new(root, {})
+			}));
+
+
+// Create series
+// https://www.amcharts.com/docs/v5/charts/xy-chart/series/
+			var series = chart.series.push(am5xy.ColumnSeries.new(root, {
+				name: "Series 1",
+				xAxis: xAxis,
+				yAxis: yAxis,
+				valueYField: "trips",
+				sequencedInterpolation: true,
+				categoryXField: "hour",
+				tooltip: am5.Tooltip.new(root, {
+					labelText:"{valueY}"
+				})
+			}));
+
+			series.columns.template.setAll({ cornerRadiusTL: 5, cornerRadiusTR: 5 });
+			series.columns.template.adapters.add("fill", function(fill, target) {
+				return chart.get("colors").getIndex(series.columns.indexOf(target));
+			});
+
+			series.columns.template.adapters.add("stroke", function(stroke, target) {
+				return chart.get("colors").getIndex(series.columns.indexOf(target));
+			});
+
+
+// Set data
+			var data =  [
+				{
+					"trips": 212,
+					"hour": 0
+				},
+				{
+					"trips": 78,
+					"hour": 1
+				},
+				{
+					"trips": 32,
+					"hour": 2
+				},
+				{
+					"trips": 15,
+					"hour": 3
+				},
+				{
+					"trips": 5,
+					"hour": 4
+				},
+				{
+					"trips": 72,
+					"hour": 5
+				},
+				{
+					"trips": 245,
+					"hour": 6
+				},
+				{
+					"trips": 867,
+					"hour": 7
+				},
+				{
+					"trips": 972,
+					"hour": 8
+				},
+				{
+					"trips": 1110,
+					"hour": 9
+				},
+				{
+					"trips": 2105,
+					"hour": 10
+				},
+				{
+					"trips": 3320,
+					"hour": 11
+				},
+				{
+					"trips": 4320,
+					"hour": 12
+				},
+				{
+					"trips": 5386,
+					"hour": 13
+				},
+				{
+					"trips": 6029,
+					"hour": 14
+				},
+				{
+					"trips": 6609,
+					"hour": 15
+				},
+				{
+					"trips": 6676,
+					"hour": 16
+				},
+				{
+					"trips": 6174,
+					"hour": 17
+				},
+				{
+					"trips": 4772,
+					"hour": 18
+				},
+				{
+					"trips": 3693,
+					"hour": 19
+				},
+				{
+					"trips": 2502,
+					"hour": 20
+				},
+				{
+					"trips": 1601,
+					"hour": 21
+				},
+				{
+					"trips": 1368,
+					"hour": 22
+				},
+				{
+					"trips": 546,
+					"hour": 23
+				}
+			];
+
+			xAxis.data.setAll(data);
+			series.data.setAll(data);
+
+
+// Make stuff animate on load
+// https://www.amcharts.com/docs/v5/concepts/animations/
+			series.appear(1000);
+			chart.appear(1000, 100);
+
+		}); // end am5.ready()
+	</script>
+
+
+
+
+</head>
+
+<body>
+<div class="wrapper">
+	<nav id="sidebar" class="sidebar js-sidebar">
+		<div class="sidebar-content js-simplebar">
+			<a class="sidebar-brand" href="index.html">
+				<span class="align-middle">Bikelytics</span>
+			</a>
+
+			<ul class="sidebar-nav">
+				<li class="sidebar-header">
+					Pages
+				</li>
+
+				<li class="sidebar-item ">
+					<a class="sidebar-link" href="index.html">
+						<i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
+					</a>
+				</li>
+
+				<li class="sidebar-item active">
+					<a class="sidebar-link" href="pages-blank.html">
+						<i class="align-middle" data-feather="book"></i> <span class="align-middle">Station</span>
+					</a>
+				</li>
+
+				<li class="sidebar-item">
+					<a class="sidebar-link" href="pages-profile.html">
+						<i class="align-middle" data-feather="user"></i> <span class="align-middle">About</span>
+					</a>
+				</li>
+			</ul>
+
+
+
+
+
+		</div>
+	</nav>
+
+	<div class="main">
+		<nav class="navbar navbar-expand navbar-light navbar-bg">
+			<a class="sidebar-toggle js-sidebar-toggle">
+				<i class="hamburger align-self-center"></i>
+			</a>
+
+<!--			<div class="navbar-collapse collapse">-->
+<!--				<ul class="navbar-nav navbar-align">-->
+<!--					<li class="nav-item dropdown">-->
+<!--						<a class="nav-icon dropdown-toggle" href="#" id="alertsDropdown" data-bs-toggle="dropdown">-->
+<!--							<div class="position-relative">-->
+<!--								<i class="align-middle" data-feather="bell"></i>-->
+<!--								<span class="indicator">4</span>-->
+<!--							</div>-->
+<!--						</a>-->
+<!--						<div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0" aria-labelledby="alertsDropdown">-->
+<!--							<div class="dropdown-menu-header">-->
+<!--								4 New Notifications-->
+<!--							</div>-->
+<!--							<div class="list-group">-->
+<!--								<a href="#" class="list-group-item">-->
+<!--									<div class="row g-0 align-items-center">-->
+<!--										<div class="col-2">-->
+<!--											<i class="text-danger" data-feather="alert-circle"></i>-->
+<!--										</div>-->
+<!--										<div class="col-10">-->
+<!--											<div class="text-dark">Update completed</div>-->
+<!--											<div class="text-muted small mt-1">Restart server 12 to complete the update.</div>-->
+<!--											<div class="text-muted small mt-1">30m ago</div>-->
+<!--										</div>-->
+<!--									</div>-->
+<!--								</a>-->
+<!--								<a href="#" class="list-group-item">-->
+<!--									<div class="row g-0 align-items-center">-->
+<!--										<div class="col-2">-->
+<!--											<i class="text-warning" data-feather="bell"></i>-->
+<!--										</div>-->
+<!--										<div class="col-10">-->
+<!--											<div class="text-dark">Lorem ipsum</div>-->
+<!--											<div class="text-muted small mt-1">Aliquam ex eros, imperdiet vulputate hendrerit et.</div>-->
+<!--											<div class="text-muted small mt-1">2h ago</div>-->
+<!--										</div>-->
+<!--									</div>-->
+<!--								</a>-->
+<!--								<a href="#" class="list-group-item">-->
+<!--									<div class="row g-0 align-items-center">-->
+<!--										<div class="col-2">-->
+<!--											<i class="text-primary" data-feather="home"></i>-->
+<!--										</div>-->
+<!--										<div class="col-10">-->
+<!--											<div class="text-dark">Login from 192.186.1.8</div>-->
+<!--											<div class="text-muted small mt-1">5h ago</div>-->
+<!--										</div>-->
+<!--									</div>-->
+<!--								</a>-->
+<!--								<a href="#" class="list-group-item">-->
+<!--									<div class="row g-0 align-items-center">-->
+<!--										<div class="col-2">-->
+<!--											<i class="text-success" data-feather="user-plus"></i>-->
+<!--										</div>-->
+<!--										<div class="col-10">-->
+<!--											<div class="text-dark">New connection</div>-->
+<!--											<div class="text-muted small mt-1">Christina accepted your request.</div>-->
+<!--											<div class="text-muted small mt-1">14h ago</div>-->
+<!--										</div>-->
+<!--									</div>-->
+<!--								</a>-->
+<!--							</div>-->
+<!--							<div class="dropdown-menu-footer">-->
+<!--								<a href="#" class="text-muted">Show all notifications</a>-->
+<!--							</div>-->
+<!--						</div>-->
+<!--					</li>-->
+<!--					<li class="nav-item dropdown">-->
+<!--						<a class="nav-icon dropdown-toggle" href="#" id="messagesDropdown" data-bs-toggle="dropdown">-->
+<!--							<div class="position-relative">-->
+<!--								<i class="align-middle" data-feather="message-square"></i>-->
+<!--							</div>-->
+<!--						</a>-->
+<!--						<div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0" aria-labelledby="messagesDropdown">-->
+<!--							<div class="dropdown-menu-header">-->
+<!--								<div class="position-relative">-->
+<!--									4 New Messages-->
+<!--								</div>-->
+<!--							</div>-->
+<!--							<div class="list-group">-->
+<!--								<a href="#" class="list-group-item">-->
+<!--									<div class="row g-0 align-items-center">-->
+<!--										<div class="col-2">-->
+<!--											<img src="img/avatars/avatar-5.jpg" class="avatar img-fluid rounded-circle" alt="Vanessa Tucker">-->
+<!--										</div>-->
+<!--										<div class="col-10 ps-2">-->
+<!--											<div class="text-dark">Vanessa Tucker</div>-->
+<!--											<div class="text-muted small mt-1">Nam pretium turpis et arcu. Duis arcu tortor.</div>-->
+<!--											<div class="text-muted small mt-1">15m ago</div>-->
+<!--										</div>-->
+<!--									</div>-->
+<!--								</a>-->
+<!--								<a href="#" class="list-group-item">-->
+<!--									<div class="row g-0 align-items-center">-->
+<!--										<div class="col-2">-->
+<!--											<img src="img/avatars/avatar-2.jpg" class="avatar img-fluid rounded-circle" alt="William Harris">-->
+<!--										</div>-->
+<!--										<div class="col-10 ps-2">-->
+<!--											<div class="text-dark">William Harris</div>-->
+<!--											<div class="text-muted small mt-1">Curabitur ligula sapien euismod vitae.</div>-->
+<!--											<div class="text-muted small mt-1">2h ago</div>-->
+<!--										</div>-->
+<!--									</div>-->
+<!--								</a>-->
+<!--								<a href="#" class="list-group-item">-->
+<!--									<div class="row g-0 align-items-center">-->
+<!--										<div class="col-2">-->
+<!--											<img src="img/avatars/avatar-4.jpg" class="avatar img-fluid rounded-circle" alt="Christina Mason">-->
+<!--										</div>-->
+<!--										<div class="col-10 ps-2">-->
+<!--											<div class="text-dark">Christina Mason</div>-->
+<!--											<div class="text-muted small mt-1">Pellentesque auctor neque nec urna.</div>-->
+<!--											<div class="text-muted small mt-1">4h ago</div>-->
+<!--										</div>-->
+<!--									</div>-->
+<!--								</a>-->
+<!--								<a href="#" class="list-group-item">-->
+<!--									<div class="row g-0 align-items-center">-->
+<!--										<div class="col-2">-->
+<!--											<img src="img/avatars/avatar-3.jpg" class="avatar img-fluid rounded-circle" alt="Sharon Lessman">-->
+<!--										</div>-->
+<!--										<div class="col-10 ps-2">-->
+<!--											<div class="text-dark">Sharon Lessman</div>-->
+<!--											<div class="text-muted small mt-1">Aenean tellus metus, bibendum sed, posuere ac, mattis non.</div>-->
+<!--											<div class="text-muted small mt-1">5h ago</div>-->
+<!--										</div>-->
+<!--									</div>-->
+<!--								</a>-->
+<!--							</div>-->
+<!--							<div class="dropdown-menu-footer">-->
+<!--								<a href="#" class="text-muted">Show all messages</a>-->
+<!--							</div>-->
+<!--						</div>-->
+<!--					</li>-->
+<!--					<li class="nav-item dropdown">-->
+<!--						<a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-bs-toggle="dropdown">-->
+<!--							<i class="align-middle" data-feather="settings"></i>-->
+<!--						</a>-->
+
+<!--						<a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">-->
+<!--							<img src="img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1" alt="Charles Hall" /> <span class="text-dark">Charles Hall</span>-->
+<!--						</a>-->
+<!--						<div class="dropdown-menu dropdown-menu-end">-->
+<!--							<a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1" data-feather="user"></i> Profile</a>-->
+<!--							<a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="pie-chart"></i> Analytics</a>-->
+<!--							<div class="dropdown-divider"></div>-->
+<!--							<a class="dropdown-item" href="index.html"><i class="align-middle me-1" data-feather="settings"></i> Settings & Privacy</a>-->
+<!--							<a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="help-circle"></i> Help Center</a>-->
+<!--							<div class="dropdown-divider"></div>-->
+<!--							<a class="dropdown-item" href="#">Log out</a>-->
+<!--						</div>-->
+<!--					</li>-->
+<!--				</ul>-->
+<!--			</div>-->
+		</nav>
+
+		<main class="content">
+			<div class="container-fluid p-0">
+
+				<h1 class="h3 mb-3"><strong>Station View</strong> for Streeter Dr & Grand Ave Station</h1>
+
+
+				<div class="row">
+
+					<div class="col-12 col-md-12 col-xxl-12 d-flex order-3 order-xxl-2">
+						<div class="card flex-fill w-100">
+							<div class="card-header">
+
+								<h5 class="card-title mb-0">Stations Map</h5>
+							</div>
+							<div class="card-body px-4">
+								<div id="myDiv"></div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="row">
+
+
+
+
+					<div class="col-12 col-lg-4 col-xxl-6 d-flex">
+						<div class="card flex-fill w-100">
+							<div class="card-header">
+
+								<h5 class="card-title mb-0">Hourly Incoming Stats for Streeter Dr & Grand Ave Station</h5>
+							</div>
+							<div class="card-body d-flex w-100">
+								<div class="align-self-center chart chart-lg">
+									<div id="barchartdiv1"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-12 col-lg-4 col-xxl-6 d-flex">
+						<div class="card flex-fill w-100">
+							<div class="card-header">
+
+								<h5 class="card-title mb-0">Hourly Outgoing Stats for Streeter Dr & Grand Ave Station</h5>
+							</div>
+							<div class="card-body d-flex w-100">
+								<div class="align-self-center chart chart-lg">
+									<div id="barchartdiv2"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+
+
+
+
+					<div class="col-12 col-lg-4 col-xxl-12 d-flex">
+						<div class="card flex-fill w-100">
+							<div class="card-header">
+
+								<h5 class="card-title mb-0">Ridership Trend Streeter Dr & Grand Ave Station</h5>
+							</div>
+							<div class="card-body d-flex w-100">
+								<div class="align-self-center chart chart-lg">
+									<div id="linechartdiv1"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+
+			</div>
+		</main>
+
+<!--		<footer class="footer">-->
+<!--			<div class="container-fluid">-->
+<!--				<div class="row text-muted">-->
+<!--					<div class="col-6 text-start">-->
+<!--						<p class="mb-0">-->
+<!--							<a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>AdminKit</strong></a> &copy;-->
+<!--						</p>-->
+<!--					</div>-->
+<!--					<div class="col-6 text-end">-->
+<!--						<ul class="list-inline">-->
+<!--							<li class="list-inline-item">-->
+<!--								<a class="text-muted" href="https://adminkit.io/" target="_blank">Support</a>-->
+<!--							</li>-->
+<!--							<li class="list-inline-item">-->
+<!--								<a class="text-muted" href="https://adminkit.io/" target="_blank">Help Center</a>-->
+<!--							</li>-->
+<!--							<li class="list-inline-item">-->
+<!--								<a class="text-muted" href="https://adminkit.io/" target="_blank">Privacy</a>-->
+<!--							</li>-->
+<!--							<li class="list-inline-item">-->
+<!--								<a class="text-muted" href="https://adminkit.io/" target="_blank">Terms</a>-->
+<!--							</li>-->
+<!--						</ul>-->
+<!--					</div>-->
+<!--				</div>-->
+<!--			</div>-->
+<!--		</footer>-->
+	</div>
+</div>
+
+<script src="js/app.js"></script>
+
+<script>
+	document.addEventListener("DOMContentLoaded", function() {
+		var ctx = document.getElementById("chartjs-dashboard-line").getContext("2d");
+		var gradient = ctx.createLinearGradient(0, 0, 0, 225);
+		gradient.addColorStop(0, "rgba(215, 227, 244, 1)");
+		gradient.addColorStop(1, "rgba(215, 227, 244, 0)");
+		// Line chart
+		new Chart(document.getElementById("chartjs-dashboard-line"), {
+			type: "line",
+			data: {
+				labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+				datasets: [{
+					label: "Sales ($)",
+					fill: true,
+					backgroundColor: gradient,
+					borderColor: window.theme.primary,
+					data: [
+						2115,
+						1562,
+						1584,
+						1892,
+						1587,
+						1923,
+						2566,
+						2448,
+						2805,
+						3438,
+						2917,
+						3327
+					]
+				}]
+			},
+			options: {
+				maintainAspectRatio: false,
+				legend: {
+					display: false
+				},
+				tooltips: {
+					intersect: false
+				},
+				hover: {
+					intersect: true
+				},
+				plugins: {
+					filler: {
+						propagate: false
+					}
+				},
+				scales: {
+					xAxes: [{
+						reverse: true,
+						gridLines: {
+							color: "rgba(0,0,0,0.0)"
+						}
+					}],
+					yAxes: [{
+						ticks: {
+							stepSize: 1000
+						},
+						display: true,
+						borderDash: [3, 3],
+						gridLines: {
+							color: "rgba(0,0,0,0.0)"
+						}
+					}]
+				}
+			}
+		});
+	});
+</script>
+<script>
+	document.addEventListener("DOMContentLoaded", function() {
+		// Pie chart
+		new Chart(document.getElementById("chartjs-dashboard-pie"), {
+			type: "pie",
+			data: {
+				labels: ["Chrome", "Firefox", "IE"],
+				datasets: [{
+					data: [4306, 3801, 1689],
+					backgroundColor: [
+						window.theme.primary,
+						window.theme.warning,
+						window.theme.danger
+					],
+					borderWidth: 5
+				}]
+			},
+			options: {
+				responsive: !window.MSInputMethodContext,
+				maintainAspectRatio: false,
+				legend: {
+					display: false
+				},
+				cutoutPercentage: 75
+			}
+		});
+	});
+</script>
+<script>
+	document.addEventListener("DOMContentLoaded", function() {
+		// Bar chart
+		new Chart(document.getElementById("chartjs-dashboard-bar"), {
+			type: "bar",
+			data: {
+				labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+				datasets: [{
+					label: "This year",
+					backgroundColor: window.theme.primary,
+					borderColor: window.theme.primary,
+					hoverBackgroundColor: window.theme.primary,
+					hoverBorderColor: window.theme.primary,
+					data: [54, 67, 41, 55, 62, 45, 55, 73, 60, 76, 48, 79],
+					barPercentage: .75,
+					categoryPercentage: .5
+				}]
+			},
+			options: {
+				maintainAspectRatio: false,
+				legend: {
+					display: false
+				},
+				scales: {
+					yAxes: [{
+						gridLines: {
+							display: false
+						},
+						stacked: false,
+						ticks: {
+							stepSize: 20
+						}
+					}],
+					xAxes: [{
+						stacked: false,
+						gridLines: {
+							color: "transparent"
+						}
+					}]
+				}
+			}
+		});
+	});
+</script>
+<script>
+	document.addEventListener("DOMContentLoaded", function() {
+		var markers = [{
+			coords: [31.230391, 121.473701],
+			name: "Shanghai"
+		},
+			{
+				coords: [28.704060, 77.102493],
+				name: "Delhi"
+			},
+			{
+				coords: [6.524379, 3.379206],
+				name: "Lagos"
+			},
+			{
+				coords: [35.689487, 139.691711],
+				name: "Tokyo"
+			},
+			{
+				coords: [23.129110, 113.264381],
+				name: "Guangzhou"
+			},
+			{
+				coords: [40.7127837, -74.0059413],
+				name: "New York"
+			},
+			{
+				coords: [34.052235, -118.243683],
+				name: "Los Angeles"
+			},
+			{
+				coords: [41.878113, -87.629799],
+				name: "Chicago"
+			},
+			{
+				coords: [51.507351, -0.127758],
+				name: "London"
+			},
+			{
+				coords: [40.416775, -3.703790],
+				name: "Madrid "
+			}
+		];
+		var map = new jsVectorMap({
+			map: "world",
+			selector: "#world_map",
+			zoomButtons: true,
+			markers: markers,
+			markerStyle: {
+				initial: {
+					r: 9,
+					strokeWidth: 7,
+					stokeOpacity: .4,
+					fill: window.theme.primary
+				},
+				hover: {
+					fill: window.theme.primary,
+					stroke: window.theme.primary
+				}
+			},
+			zoomOnScroll: false
+		});
+		window.addEventListener("resize", () => {
+			map.updateSize();
+		});
+	});
+</script>
+<script>
+	document.addEventListener("DOMContentLoaded", function() {
+		var date = new Date(Date.now() - 5 * 24 * 60 * 60 * 1000);
+		var defaultDate = date.getUTCFullYear() + "-" + (date.getUTCMonth() + 1) + "-" + date.getUTCDate();
+		document.getElementById("datetimepicker-dashboard").flatpickr({
+			inline: true,
+			prevArrow: "<span title=\"Previous month\">&laquo;</span>",
+			nextArrow: "<span title=\"Next month\">&raquo;</span>",
+			defaultDate: defaultDate
+		});
+	});
+</script>
+
+</body>
+
+</html>
