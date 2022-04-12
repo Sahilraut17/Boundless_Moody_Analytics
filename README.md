@@ -13,7 +13,7 @@ This contains two folders ## moody-backend and ## ui
 
 cd into the ui folder and use ## npm start
 
-## from a second From CMD / Terminal 
+## from a second CMD / Terminal 
 
 cd into the moody-backend folder and use ## python3 app.py
 
