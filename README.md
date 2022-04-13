@@ -17,3 +17,17 @@ cd into the ui folder and use ## npm start
 
 cd into the moody-backend folder and use ## python3 app.py
 
+
+## For the application webpage
+
+The table is defined as grades. 
+So while inserting a query use the format 
+
+ ## "Select * from grades where condition;"
+
+The following columns with unique values can be used for defining the conditions
+
+![image](https://user-images.githubusercontent.com/91026979/163110191-cf300ddb-aa58-4a75-8b15-31987b1cc553.png)
+
+
+
