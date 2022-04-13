@@ -27,6 +27,8 @@ So while inserting a query use the format
 
 The following columns with unique values can be used for defining the conditions
 
+Example Query: Select * from grades where DOZES_OFF ="always";
+
 ![image](https://user-images.githubusercontent.com/91026979/163110191-cf300ddb-aa58-4a75-8b15-31987b1cc553.png)
 
 
