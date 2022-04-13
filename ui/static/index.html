@@ -36,42 +36,49 @@
 <script type="text/javascript">
 	let defaultQuery = "SELECT * FROM grades";
 	let endPoint = "/fetch";
-	let baseUrl = "http://127.0.0.1:5000";
+	let baseUrl = "http://ec2-54-211-1-83.compute-1.amazonaws.com:5000";
 
-	function boxPlot(whole_scores,sliced_scores,grade,div_id) {
-
-		let colors = ['rgba(93, 164, 214, 0.5)'
-			, 'rgba(255, 144, 14, 0.5)'
+	function boxPlot(scores_whole,scores_sliced,grade,div_id) {
+		console.log('Scores for A(whole) ', scores_whole);
+		console.log('Scores for A(sliced) ', scores_sliced)
+		console.trace();
+		/*let colors = ['rgba(93, 164, 214, 0.5)'
 			, 'rgba(255, 144, 14, 0.5)'
 			, 'rgba(44, 160, 101, 0.5)'
-			, 'rgba(44, 160, 101, 0.5)'
 			, 'rgba(255, 65, 54, 0.5)'
-			, 'rgba(255, 65, 54, 0.5)'
-			, 'rgba(207, 114, 255, 0.5)'];
-		let boxcolor = colors[0];
-		if(grade === 'B')
-			boxcolor = colors[1];
-			boxcolor = colors[2]
-		else if(grade === 'C')
-			boxcolor = colors[2];
-		else if(grade === 'D')
-			boxcolor = colors[3];
-		else if(grade === 'F')
-			boxcolor = colors[4];
+			, 'rgba(207, 114, 255, 0.5)'];*/
+		let boxColorWhole = '#9ec5fe';
+		let boxColorSliced = '#3d8bfd';
+		if(grade === 'B') {
+			boxColorWhole = '#c29ffa';
+			boxColorSliced = '#8540f5';
+		}
+		else if(grade === 'C'){
+			boxColorWhole = '#75b798';
+			boxColorSliced = '#198754';
+		}
+		else if(grade === 'D'){
+			boxColorWhole = '#feb272';
+			boxColorSliced = '#fd7e14';
+		}
+		else if(grade === 'F'){
+			boxColorWhole = '#ea868f';
+			boxColorSliced = '#dc3545';
+		}
 
-		let trace1 = {
-			y: scores,
+		let trace_whole = {
+			y: scores_whole,
 			type: 'box',
-			name: grade + ' Whole',
-			marker: {color: boxcolor},
+			name: grade + '(Whole Data)',
+			marker: {color: boxColorWhole},
 		};
-		let trace2 = {
-			y: sliced_scores,
+		let trace_sliced = {
+			y: scores_sliced,
 			type: 'box',
-			name: grade + ' Sliced',
-			marker: {color: boxcolor},
+			name: grade + '(Sliced Data)',
+			marker: {color: boxColorSliced},
 		};
-		let data = [trace1, trace2];
+		let data = [trace_whole,trace_sliced];
 		var layout = {
 			yaxis: {
 				title: 'Scores'
@@ -83,17 +90,9 @@
 	function loadDefaultCharts() {
 		console.log("Called loadDefaultCharts()");
 
-		let url = new URL(baseUrl + endPoint + "/" + defaultQuery)
-		let responseData = null
+		let urlWhole = new URL(baseUrl + endPoint + "/" + defaultQuery)
 
-		let query = document.getElementById('query-box').value
-		if(query == null || query.trim() === '')
-			query = defaultQuery
-
-		let url_sliced = new URL(baseUrl + endPoint + "/" + query)
-		
-
-		fetch(url.toString(),{
+		fetch(urlWhole.toString(),{
 				method: "GET",
 				headers: {'Content-Type': "application/json"}})
 			.then(res => {
@@ -103,57 +102,26 @@
 				return res.json();
 			})
 			.then(json => {
-				console.log("Json data is: ",json);
-				responseData = json;
-				let gradeA_scores = [];
-				let gradeB_scores = [];
-				let gradeC_scores = [];
-				let gradeD_scores = [];
-				let gradeF_scores = [];
+				console.log("Whole Json data is: ",json);
+				let gradeA_scores_whole = [];
+				let gradeB_scores_whole = [];
+				let gradeC_scores_whole = [];
+				let gradeD_scores_whole = [];
+				let gradeF_scores_whole = [];
 				json.map(row => {
 					if(row.GRADE === 'A')
-						gradeA_scores.push(row.SCORE);
+						gradeA_scores_whole.push(row.SCORE);
 					else if(row.GRADE === 'B')
-						gradeB_scores.push(row.SCORE);
+						gradeB_scores_whole.push(row.SCORE);
 					else if(row.GRADE === 'C')
-						gradeC_scores.push(row.SCORE);
+						gradeC_scores_whole.push(row.SCORE);
 					else if(row.GRADE === 'D')
-						gradeD_scores.push(row.SCORE);
+						gradeD_scores_whole.push(row.SCORE);
 					else if(row.GRADE === 'F')
-						gradeF_scores.push(row.SCORE);
+						gradeF_scores_whole.push(row.SCORE);
 				});
 
-		fetch(url_sliced.toString(),{
-				method: "GET",
-				headers: {'Content-Type': "application/json"}})
-			.then(res => {
-				console.log("Response is: ",res);
-				if(res.status >= 300)
-					throw res.json(); //handle
-				return res.json();
-			})
-			.then(json => {
-				console.log("Json data is: ",json);
-				responseData = json;
-				let gradeA_scores_sliced = [];
-				let gradeB_scores_sliced = [];
-				let gradeC_scores_sliced = [];
-				let gradeD_scores_sliced = [];
-				let gradeF_scores_sliced = [];
-				json.map(row => {
-					if(row.GRADE === 'A')
-						gradeA_scores.push(row.SCORE);
-					else if(row.GRADE === 'B')
-						gradeB_scores.push(row.SCORE);
-					else if(row.GRADE === 'C')
-						gradeC_scores.push(row.SCORE);
-					else if(row.GRADE === 'D')
-						gradeD_scores.push(row.SCORE);
-					else if(row.GRADE === 'F')
-						gradeF_scores.push(row.SCORE);
-				});
-
-				//plotting boxplots for whole data windows
+				/*//plotting boxplots for whole data windows
 				boxPlot(gradeA_scores,'A','chart-grade-a-whole');
 				boxPlot(gradeB_scores,'B','chart-grade-b-whole');
 				boxPlot(gradeC_scores,'C','chart-grade-c-whole');
@@ -165,13 +133,101 @@
 				boxPlot(gradeB_scores,'B','chart-grade-b-sliced');
 				boxPlot(gradeC_scores,'C','chart-grade-c-sliced');
 				boxPlot(gradeD_scores,'D','chart-grade-d-sliced');
-				boxPlot(gradeF_scores,'F','chart-grade-f-sliced');
+				boxPlot(gradeF_scores,'F','chart-grade-f-sliced');*/
 
+
+				let query = document.getElementById('query-box').value
+				if(query == null || query.trim() === '')
+					query = defaultQuery;
+				//call for sliced data
+				let urlSliced = new URL(baseUrl + endPoint + "/" + query)
+				fetch(urlSliced.toString(),{
+					method: "GET",
+					headers: {'Content-Type': "application/json"}})
+				.then(res => {
+					console.log("Response is: ",res);
+					if(res.status >= 300)
+						throw res.json(); //handle
+					return res.json();
+				}).then(json => {
+					console.log("Sliced Json data is: ",json);
+					let gradeA_scores_sliced = [];
+					let gradeB_scores_sliced = [];
+					let gradeC_scores_sliced = [];
+					let gradeD_scores_sliced = [];
+					let gradeF_scores_sliced = [];
+					json.map(row => {
+						if(row.GRADE === 'A')
+							gradeA_scores_sliced.push(row.SCORE);
+						else if(row.GRADE === 'B')
+							gradeB_scores_sliced.push(row.SCORE);
+						else if(row.GRADE === 'C')
+							gradeC_scores_sliced.push(row.SCORE);
+						else if(row.GRADE === 'D')
+							gradeD_scores_sliced.push(row.SCORE);
+						else if(row.GRADE === 'F')
+							gradeF_scores_sliced.push(row.SCORE);
+
+					});
+					boxPlot(gradeA_scores_whole,gradeA_scores_sliced,'A','chart-grade-a-whole');
+                    boxPlot(gradeB_scores_whole,gradeB_scores_sliced,'B','chart-grade-b-whole');
+                    boxPlot(gradeC_scores_whole,gradeC_scores_sliced,'C','chart-grade-c-whole');
+                    boxPlot(gradeD_scores_whole,gradeD_scores_sliced,'D','chart-grade-d-whole');
+                    boxPlot(gradeF_scores_whole,gradeF_scores_sliced,'F','chart-grade-f-whole');
+				});
 		});
 	}
 
+	/*function loadSlicedCharts() {
+		console.log("Called loadSlicedCharts()");
+		let query = document.getElementById('query-box').value
+		if(query == null || query.trim() === '')
+			query = defaultQuery
 
-	}
+		console.log('Query is: ',query)
+		let url = new URL(baseUrl + endPoint + "/" + query)
+		let responseData = null
+
+		fetch(url.toString(),{
+			method: "GET",
+			headers: {'Content-Type': "application/json"}})
+				.then(res => {
+					console.log("Response is: ",res);
+					if(res.status >= 300)
+						throw res.json(); //handle
+					return res.json();
+				})
+				.then(json => {
+					console.log("Sliced Json data is: ",json);
+					responseData = json;
+					let gradeA_scores = [];
+					let gradeB_scores = [];
+					let gradeC_scores = [];
+					let gradeD_scores = [];
+					let gradeF_scores = [];
+					json.map(row => {
+						if(row.GRADE === 'A')
+							gradeA_scores.push(row.SCORE);
+						else if(row.GRADE === 'B')
+							gradeB_scores.push(row.SCORE);
+						else if(row.GRADE === 'C')
+							gradeC_scores.push(row.SCORE);
+						else if(row.GRADE === 'D')
+							gradeD_scores.push(row.SCORE);
+						else if(row.GRADE === 'F')
+							gradeF_scores.push(row.SCORE);
+					});
+
+					//plotting boxplots for sliced data windows
+					boxPlot(gradeA_scores,'A','chart-grade-a-sliced');
+					boxPlot(gradeB_scores,'B','chart-grade-b-sliced');
+					boxPlot(gradeC_scores,'C','chart-grade-c-sliced');
+					boxPlot(gradeD_scores,'D','chart-grade-d-sliced');
+					boxPlot(gradeF_scores,'F','chart-grade-f-sliced');
+				});
+
+
+	}*/
 
 
 </script>
@@ -385,7 +441,7 @@
 											</div>
 										</div>
 										<div class="text-center mt-3">
-											<button type="button" class="btn btn-success me-2" onclick=loadSlicedCharts()>Fire</button>
+											<button type="button" class="btn btn-success me-2" onclick=loadDefaultCharts()>Fire</button>
 											<button type="reset" class="btn btn-danger me-2" onclick=loadDefaultCharts()>Reset</button>
 										</div>
 									</form>
@@ -396,108 +452,68 @@
 					</div>
 
 					<div class="row">
-						<div class="col-12 col-lg-8 col-xxl-6 d-flex">
+						<div class="col-12 col-lg-8 col-xxl-12 d-flex">
 							<div class="card flex-fill">
 								<div class="card-header">
 
-									<h5 class="card-title mb-0">Grade A - Whole Data</h5>
+									<h5 class="card-title mb-0">Grade A - Distribution of Scores for Whole Data vs Sliced Data</h5>
 									<div class="align-self-center chart chart-lg">
 										<div class="box-plot" id="chart-grade-a-whole"></div>
 									</div>
 								</div>
 							</div>
 						</div>
-						<div class="col-12 col-lg-8 col-xxl-6 d-flex">
-							<div class="card flex-fill">
-								<div class="card-header">
 
-									<h5 class="card-title mb-0">Grade A - Sliced Data</h5>
-									<div class="align-self-center chart chart-lg">
-										<div class="box-plot" id="chart-grade-a-sliced"></div>
-									</div>
-								</div>
-							</div>
-						</div>
 					</div>
 
 					<div class="row">
-						<div class="col-12 col-lg-8 col-xxl-6 d-flex">
+						<div class="col-12 col-lg-8 col-xxl-12 d-flex">
 							<div class="card flex-fill">
 								<div class="card-header">
 
-									<h5 class="card-title mb-0">Grade B - Whole Data</h5>
+									<h5 class="card-title mb-0">Grade B - Distribution of Scores for Whole Data vs Sliced Data</h5>
 									<div class="align-self-center chart chart-lg">
 										<div class="box-plot" id="chart-grade-b-whole"></div>
 									</div>
 								</div>
 							</div>
 						</div>
-						<div class="col-12 col-lg-8 col-xxl-6 d-flex">
-							<div class="card flex-fill">
-								<div class="card-header">
 
-									<h5 class="card-title mb-0">Grade B - Sliced Data</h5>
-									<div class="align-self-center chart chart-lg">
-										<div class="box-plot" id="chart-grade-b-sliced"></div>
-									</div>
-								</div>
-							</div>
-						</div>
 					</div>
 					<div class="row">
-						<div class="col-12 col-lg-8 col-xxl-6 d-flex">
+						<div class="col-12 col-lg-8 col-xxl-12 d-flex">
 							<div class="card flex-fill">
 								<div class="card-header">
 
-									<h5 class="card-title mb-0">Grade C - Whole Data</h5>
+									<h5 class="card-title mb-0">Grade C - Distribution of Scores for Whole Data vs Sliced Data</h5>
 									<div class="align-self-center chart chart-lg">
 										<div class="box-plot" id="chart-grade-c-whole"></div>
 									</div>
 								</div>
 							</div>
 						</div>
-						<div class="col-12 col-lg-8 col-xxl-6 d-flex">
-							<div class="card flex-fill">
-								<div class="card-header">
 
-									<h5 class="card-title mb-0">Grade C - Sliced Data</h5>
-									<div class="align-self-center chart chart-lg">
-										<div class="box-plot" id="chart-grade-c-sliced"></div>
-									</div>
-								</div>
-							</div>
-						</div>
 					</div>
 					<div class="row">
-						<div class="col-12 col-lg-8 col-xxl-6 d-flex">
+						<div class="col-12 col-lg-8 col-xxl-12 d-flex">
 							<div class="card flex-fill">
 								<div class="card-header">
 
-									<h5 class="card-title mb-0">Grade D - Whole Data</h5>
+									<h5 class="card-title mb-0">Grade D - Distribution of Scores for Whole Data vs Sliced Data</h5>
 									<div class="align-self-center chart chart-lg">
 										<div class="box-plot" id="chart-grade-d-whole"></div>
 									</div>
 								</div>
 							</div>
 						</div>
-						<div class="col-12 col-lg-8 col-xxl-6 d-flex">
-							<div class="card flex-fill">
-								<div class="card-header">
 
-									<h5 class="card-title mb-0">Grade D - Sliced Data</h5>
-									<div class="align-self-center chart chart-lg">
-										<div class="box-plot" id="chart-grade-d-sliced"></div>
-									</div>
-								</div>
-							</div>
-						</div>
 					</div>
 					<div class="row">
-						<div class="col-12 col-lg-8 col-xxl-6 d-flex">
+						<div class="col-12 col-lg-8 col-xxl-12 d-flex">
 							<div class="card flex-fill">
 								<div class="card-header">
 
-									<h5 class="card-title mb-0">Grade F - Whole Data</h5>
+									<h5 class="card-title mb-0">Grade F - Distribution of Scores for Whole Data vs Sliced Data</h5>
 
 									<div class="align-self-center chart chart-lg">
 										<div class="box-plot" id="chart-grade-f-whole"></div>
@@ -505,17 +521,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-12 col-lg-8 col-xxl-6 d-flex">
-							<div class="card flex-fill">
-								<div class="card-header">
 
-									<h5 class="card-title mb-0">Grade F - Sliced Data</h5>
-									<div class="align-self-center chart chart-lg">
-										<div class="box-plot" id="chart-grade-f-sliced"></div>
-									</div>
-								</div>
-							</div>
-						</div>
 					</div>
 
 				</div>
