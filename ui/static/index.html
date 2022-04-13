@@ -38,16 +38,20 @@
 	let endPoint = "/fetch";
 	let baseUrl = "http://127.0.0.1:5000";
 
-	function boxPlot(scores,grade,div_id) {
+	function boxPlot(whole_scores,sliced_scores,grade,div_id) {
 
 		let colors = ['rgba(93, 164, 214, 0.5)'
 			, 'rgba(255, 144, 14, 0.5)'
+			, 'rgba(255, 144, 14, 0.5)'
 			, 'rgba(44, 160, 101, 0.5)'
+			, 'rgba(44, 160, 101, 0.5)'
+			, 'rgba(255, 65, 54, 0.5)'
 			, 'rgba(255, 65, 54, 0.5)'
 			, 'rgba(207, 114, 255, 0.5)'];
 		let boxcolor = colors[0];
 		if(grade === 'B')
 			boxcolor = colors[1];
+			boxcolor = colors[2]
 		else if(grade === 'C')
 			boxcolor = colors[2];
 		else if(grade === 'D')
@@ -55,13 +59,19 @@
 		else if(grade === 'F')
 			boxcolor = colors[4];
 
-		let trace = {
+		let trace1 = {
 			y: scores,
 			type: 'box',
-			name: grade,
+			name: grade + ' Whole',
 			marker: {color: boxcolor},
 		};
-		let data = [trace];
+		let trace2 = {
+			y: sliced_scores,
+			type: 'box',
+			name: grade + ' Sliced',
+			marker: {color: boxcolor},
+		};
+		let data = [trace1, trace2];
 		var layout = {
 			yaxis: {
 				title: 'Scores'
@@ -75,6 +85,13 @@
 
 		let url = new URL(baseUrl + endPoint + "/" + defaultQuery)
 		let responseData = null
+
+		let query = document.getElementById('query-box').value
+		if(query == null || query.trim() === '')
+			query = defaultQuery
+
+		let url_sliced = new URL(baseUrl + endPoint + "/" + query)
+		
 
 		fetch(url.toString(),{
 				method: "GET",
@@ -106,6 +123,36 @@
 						gradeF_scores.push(row.SCORE);
 				});
 
+		fetch(url_sliced.toString(),{
+				method: "GET",
+				headers: {'Content-Type': "application/json"}})
+			.then(res => {
+				console.log("Response is: ",res);
+				if(res.status >= 300)
+					throw res.json(); //handle
+				return res.json();
+			})
+			.then(json => {
+				console.log("Json data is: ",json);
+				responseData = json;
+				let gradeA_scores_sliced = [];
+				let gradeB_scores_sliced = [];
+				let gradeC_scores_sliced = [];
+				let gradeD_scores_sliced = [];
+				let gradeF_scores_sliced = [];
+				json.map(row => {
+					if(row.GRADE === 'A')
+						gradeA_scores.push(row.SCORE);
+					else if(row.GRADE === 'B')
+						gradeB_scores.push(row.SCORE);
+					else if(row.GRADE === 'C')
+						gradeC_scores.push(row.SCORE);
+					else if(row.GRADE === 'D')
+						gradeD_scores.push(row.SCORE);
+					else if(row.GRADE === 'F')
+						gradeF_scores.push(row.SCORE);
+				});
+
 				//plotting boxplots for whole data windows
 				boxPlot(gradeA_scores,'A','chart-grade-a-whole');
 				boxPlot(gradeB_scores,'B','chart-grade-b-whole');
@@ -122,54 +169,6 @@
 
 		});
 	}
-
-	function loadSlicedCharts() {
-		console.log("Called loadSlicedCharts()");
-		let query = document.getElementById('query-box').value
-		if(query == null || query.trim() === '')
-			query = defaultQuery
-
-		console.log('Query is: ',query)
-		let url = new URL(baseUrl + endPoint + "/" + query)
-		let responseData = null
-
-		fetch(url.toString(),{
-			method: "GET",
-			headers: {'Content-Type': "application/json"}})
-				.then(res => {
-					console.log("Response is: ",res);
-					if(res.status >= 300)
-						throw res.json(); //handle
-					return res.json();
-				})
-				.then(json => {
-					console.log("Sliced Json data is: ",json);
-					responseData = json;
-					let gradeA_scores = [];
-					let gradeB_scores = [];
-					let gradeC_scores = [];
-					let gradeD_scores = [];
-					let gradeF_scores = [];
-					json.map(row => {
-						if(row.GRADE === 'A')
-							gradeA_scores.push(row.SCORE);
-						else if(row.GRADE === 'B')
-							gradeB_scores.push(row.SCORE);
-						else if(row.GRADE === 'C')
-							gradeC_scores.push(row.SCORE);
-						else if(row.GRADE === 'D')
-							gradeD_scores.push(row.SCORE);
-						else if(row.GRADE === 'F')
-							gradeF_scores.push(row.SCORE);
-					});
-
-					//plotting boxplots for sliced data windows
-					boxPlot(gradeA_scores,'A','chart-grade-a-sliced');
-					boxPlot(gradeB_scores,'B','chart-grade-b-sliced');
-					boxPlot(gradeC_scores,'C','chart-grade-c-sliced');
-					boxPlot(gradeD_scores,'D','chart-grade-d-sliced');
-					boxPlot(gradeF_scores,'F','chart-grade-f-sliced');
-				});
 
 
 	}
