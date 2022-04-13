@@ -23,7 +23,7 @@ cd into the moody-backend folder and use ## python3 app.py
 The table is defined as grades. 
 So while inserting a query use the format 
 
- ## "Select * from grades where condition;"
+ ### "Select * from grades where condition;"
 
 The following columns with unique values can be used for defining the conditions
 
