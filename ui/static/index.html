@@ -38,9 +38,9 @@
 	let endPoint = "/fetch";
 	let baseUrl = "http://ec2-54-211-1-83.compute-1.amazonaws.com:5000";
 
-	function boxPlot(scores_whole,scores_sliced,grade,div_id) {
-		console.log('Scores for A(whole) ', scores_whole);
-		console.log('Scores for A(sliced) ', scores_sliced)
+	function boxPlot(scores_wholeA,scores_slicedA,scores_wholeB,scores_slicedB,scores_wholeC,scores_slicedC,scores_wholeD,scores_slicedD,scores_wholeF,scores_slicedF,div_id) {
+		console.log('Scores for A(whole) ', scores_wholeA);
+		console.log('Scores for A(sliced) ', scores_slicedA)
 		console.trace();
 		/*let colors = ['rgba(93, 164, 214, 0.5)'
 			, 'rgba(255, 144, 14, 0.5)'
@@ -49,41 +49,90 @@
 			, 'rgba(207, 114, 255, 0.5)'];*/
 		let boxColorWhole = '#9ec5fe';
 		let boxColorSliced = '#3d8bfd';
-		if(grade === 'B') {
-			boxColorWhole = '#c29ffa';
-			boxColorSliced = '#8540f5';
-		}
-		else if(grade === 'C'){
-			boxColorWhole = '#75b798';
-			boxColorSliced = '#198754';
-		}
-		else if(grade === 'D'){
-			boxColorWhole = '#feb272';
-			boxColorSliced = '#fd7e14';
-		}
-		else if(grade === 'F'){
-			boxColorWhole = '#ea868f';
-			boxColorSliced = '#dc3545';
-		}
+		
+		let	boxColorWholeB = '#c29ffa';
+		let	boxColorSlicedB = '#8540f5';
+		
+		
+		let	boxColorWholeC = '#75b798';
+		let	boxColorSlicedC = '#198754';
+		
+		
+		let	boxColorWholeD = '#feb272';
+		let	boxColorSlicedD = '#fd7e14';
+		
+	
+		let	boxColorWholeF = '#ea868f';
+		let	boxColorSlicedF = '#dc3545';
+		
 
 		let trace_whole = {
-			y: scores_whole,
+			y: scores_wholeA,
 			type: 'box',
-			name: grade + '(Whole Data)',
+			name: 'A' + '(Whole Data)',
 			marker: {color: boxColorWhole},
 		};
 		let trace_sliced = {
-			y: scores_sliced,
+			y: scores_slicedA,
 			type: 'box',
-			name: grade + '(Sliced Data)',
+			name: 'A' + '(Sliced Data)',
 			marker: {color: boxColorSliced},
 		};
-		let data = [trace_whole,trace_sliced];
+		let trace_wholeB = {
+			y: scores_wholeB,
+			type: 'box',
+			name: 'B' + '(Whole Data)',
+			marker: {color: boxColorWholeB},
+		};
+		let trace_slicedB = {
+			y: scores_slicedB,
+			type: 'box',
+			name: 'B' + '(Sliced Data)',
+			marker: {color: boxColorSlicedB},
+		};
+		let trace_wholeC = {
+			y: scores_wholeC,
+			type: 'box',
+			name: 'C' + '(Whole Data)',
+			marker: {color: boxColorWholeC},
+		};
+		let trace_slicedC = {
+			y: scores_slicedC,
+			type: 'box',
+			name: 'C' + '(Sliced Data)',
+			marker: {color: boxColorSlicedC},
+		};
+		let trace_wholeD = {
+			y: scores_wholeD,
+			type: 'box',
+			name: 'D' + '(Whole Data)',
+			marker: {color: boxColorWholeD},
+		};
+		let trace_slicedD = {
+			y: scores_slicedD,
+			type: 'box',
+			name: 'D' + '(Sliced Data)',
+			marker: {color: boxColorSlicedD},
+		};
+		let trace_wholeF = {
+			y: scores_wholeF,
+			type: 'box',
+			name: 'F' + '(Whole Data)',
+			marker: {color: boxColorWholeF},
+		};
+		let trace_slicedF = {
+			y: scores_slicedF,
+			type: 'box',
+			name: 'F' + '(Sliced Data)',
+			marker: {color: boxColorSlicedF},
+		};
+		let data = [trace_whole,trace_sliced,trace_wholeB,trace_slicedB,trace_wholeC,trace_slicedC,trace_wholeD,trace_slicedD,trace_wholeF,trace_slicedF];
 		var layout = {
 			yaxis: {
 				title: 'Scores'
 			}
 		};
+		console.log(div_id)
 		Plotly.newPlot(div_id, data, layout);
 	}
 
@@ -169,11 +218,11 @@
 							gradeF_scores_sliced.push(row.SCORE);
 
 					});
-					boxPlot(gradeA_scores_whole,gradeA_scores_sliced,'A','chart-grade-a-whole');
-                    boxPlot(gradeB_scores_whole,gradeB_scores_sliced,'B','chart-grade-b-whole');
-                    boxPlot(gradeC_scores_whole,gradeC_scores_sliced,'C','chart-grade-c-whole');
-                    boxPlot(gradeD_scores_whole,gradeD_scores_sliced,'D','chart-grade-d-whole');
-                    boxPlot(gradeF_scores_whole,gradeF_scores_sliced,'F','chart-grade-f-whole');
+					boxPlot(gradeA_scores_whole,gradeA_scores_sliced,gradeB_scores_whole,gradeB_scores_sliced,gradeC_scores_whole,gradeC_scores_sliced,gradeD_scores_whole,gradeD_scores_sliced,gradeF_scores_whole,gradeF_scores_sliced,'chart-grade-a-whole');
+                    //boxPlot(gradeB_scores_whole,gradeB_scores_sliced,'B','chart-grade-b-whole');
+                    //boxPlot(gradeC_scores_whole,gradeC_scores_sliced,'C','chart-grade-c-whole');
+                    //boxPlot(gradeD_scores_whole,gradeD_scores_sliced,'D','chart-grade-d-whole');
+                   // boxPlot(gradeF_scores_whole,gradeF_scores_sliced,'F','chart-grade-f-whole');
 				});
 		});
 	}
@@ -436,8 +485,8 @@
 										<div class="mb-3">
 
 											<div class="card-body">
-												<label class="form-label">Enter your Query:</label>
-												<textarea id = 'query-box' class="form-control" rows="2" name="querybox"  placeholder="SELECT * FROM GRADES"></textarea>
+												<label class="form-label">Enter your Query ( The table name "grade" and values for column conditions are case sensitive ):</label>
+												<textarea id = 'query-box' class="form-control" rows="2" name="querybox"  placeholder="SELECT * FROM grades"></textarea>
 											</div>
 										</div>
 										<div class="text-center mt-3">
@@ -448,81 +497,69 @@
 								</div>
 							</div>
 						</div>
-
 					</div>
+					
+					<div class="row">
+
+
+<div class="col-12 col-lg-8 col-xxl-12 d-flex">
+	<div class="card flex-fill">
+		<div class="card-header">
+
+			<h5 class="card-title mb-0">Table Columns description</h5>
+		</div>
+		<table class="table table-hover my-0">
+			<thead>
+				<tr>
+					<th>Column Name</th>
+					<th class="d-none d-xl-table-cell">Data Type</th>
+					<th class="d-none d-xl-table-cell">Values</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>DOZES_OFF</td>
+					<td class="d-none d-xl-table-cell">Category</td>
+					<td class="d-none d-xl-table-cell">always, never, rarely, sometimes</td>
+				</tr>
+				<tr>
+					<td>TEXTING_IN_CLASS</td>
+					<td class="d-none d-xl-table-cell">Category</td>
+					<td class="d-none d-xl-table-cell">always, never, rarely, sometimes</td>
+				</tr>
+				<tr>
+					<td>PARTICIPATION</td>
+					<td class="d-none d-xl-table-cell">Measure</td>
+					<td class="d-none d-xl-table-cell"> 0 - 1</td>
+				</tr>
+				<tr>
+					<td>GRADE</td>
+					<td class="d-none d-xl-table-cell">Category</td>
+					<td class="d-none d-xl-table-cell">A, B, C, D, F</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+</div>
+
 
 					<div class="row">
 						<div class="col-12 col-lg-8 col-xxl-12 d-flex">
 							<div class="card flex-fill">
 								<div class="card-header">
 
-									<h5 class="card-title mb-0">Grade A - Distribution of Scores for Whole Data vs Sliced Data</h5>
+									<h5 class="card-title mb-0">Distribution of Scores for Whole Data vs Sliced Data</h5>
 									<div class="align-self-center chart chart-lg">
 										<div class="box-plot" id="chart-grade-a-whole"></div>
 									</div>
 								</div>
 							</div>
 						</div>
-
+						
 					</div>
 
-					<div class="row">
-						<div class="col-12 col-lg-8 col-xxl-12 d-flex">
-							<div class="card flex-fill">
-								<div class="card-header">
-
-									<h5 class="card-title mb-0">Grade B - Distribution of Scores for Whole Data vs Sliced Data</h5>
-									<div class="align-self-center chart chart-lg">
-										<div class="box-plot" id="chart-grade-b-whole"></div>
-									</div>
-								</div>
-							</div>
-						</div>
-
-					</div>
-					<div class="row">
-						<div class="col-12 col-lg-8 col-xxl-12 d-flex">
-							<div class="card flex-fill">
-								<div class="card-header">
-
-									<h5 class="card-title mb-0">Grade C - Distribution of Scores for Whole Data vs Sliced Data</h5>
-									<div class="align-self-center chart chart-lg">
-										<div class="box-plot" id="chart-grade-c-whole"></div>
-									</div>
-								</div>
-							</div>
-						</div>
-
-					</div>
-					<div class="row">
-						<div class="col-12 col-lg-8 col-xxl-12 d-flex">
-							<div class="card flex-fill">
-								<div class="card-header">
-
-									<h5 class="card-title mb-0">Grade D - Distribution of Scores for Whole Data vs Sliced Data</h5>
-									<div class="align-self-center chart chart-lg">
-										<div class="box-plot" id="chart-grade-d-whole"></div>
-									</div>
-								</div>
-							</div>
-						</div>
-
-					</div>
-					<div class="row">
-						<div class="col-12 col-lg-8 col-xxl-12 d-flex">
-							<div class="card flex-fill">
-								<div class="card-header">
-
-									<h5 class="card-title mb-0">Grade F - Distribution of Scores for Whole Data vs Sliced Data</h5>
-
-									<div class="align-self-center chart chart-lg">
-										<div class="box-plot" id="chart-grade-f-whole"></div>
-									</div>
-								</div>
-							</div>
-						</div>
-
-					</div>
+					
 
 				</div>
 			</main>
